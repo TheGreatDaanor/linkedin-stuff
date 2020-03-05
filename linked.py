@@ -23,12 +23,18 @@ class LinkedinBot():
             '//*[@id="app__container"]/main/div/form/div[3]/button')
         si_btn.click()
 
-    def search(self):
-        s_bar = self.driver.find_element_by_xpath(
-            '//*[@id="ember31"]/input')
-        s_bar.send_keys('Recruiter')
-        sleep(1)
-        s_bar.submit()
+    def connect(self):
+        sres = self.driver.find_elements_by_class_name("search-results-container")
+        sresi = self.driver.find_elements_by_class_name("search-result__wrapper")
+        sline = self.driver.find_elements_by_class_name("subline-level-1")
+        cbtn = self.driver.find_elements_by_class_name("search-result__action-button")
+
+        while sresi in sres:
+            if sline in sresi:
+                if "Cyber Security Recruiter" in sline:
+                    cbtn.click()
+                else:
+                    break
 
 
 bot = LinkedinBot()
@@ -36,3 +42,5 @@ sleep(1)
 bot.login()
 sleep(3)
 bot.search()
+sleep(2)
+bot.connect()
